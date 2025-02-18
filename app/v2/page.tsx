@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { UserRound, Plus } from 'lucide-react'
 import ReminderTab from './reminder-tab'
 import TabBar from './tab-bar'
@@ -19,9 +18,9 @@ export default function V2() {
           <div className="bg-white flex justify-center items-center rounded-full w-12 h-12">
             <UserRound size={iconSize} strokeWidth={1.5} />
           </div>
-          <Button variant="outline">
+          <button className="flex justify-center items-center w-12 h-12">
             <Plus size={iconSize} strokeWidth={1.5} />
-          </Button>
+          </button>
         </div>
         {state.tab === 'reminders' && <ReminderTab />}
         {state.tab === 'medication' && <MedicationTab />}

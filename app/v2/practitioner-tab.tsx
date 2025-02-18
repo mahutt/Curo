@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Search, Filter, UserRound, ChevronRight } from 'lucide-react'
-import { useAppState } from '@/context/app-state'
+import { Practitioner, useAppState } from '@/context/app-state'
 
 const PractitionerTab = () => {
   const { state } = useAppState()
@@ -35,19 +35,10 @@ const PractitionerTab = () => {
         <div className="flex flex-col gap-1 px-4">
           {filteredPractitioners.length > 0 ? (
             filteredPractitioners.map((practitioner) => (
-              <Card key={practitioner.id} className="p-4 rounded-2xl">
-                <div className="flex items-center gap-4">
-                  <UserRound className="w-8 h-8" />
-                  <div>
-                    <div className="font-medium">{practitioner.name}</div>
-                    <div className="text-sm text-gray-500">
-                      {practitioner.specialty}
-                    </div>
-                  </div>
-                  <div className="flex-1"></div>
-                  <ChevronRight className="w-8 h-8 text-gray-400" />
-                </div>
-              </Card>
+              <PractitionerCard
+                key={practitioner.id}
+                practitioner={practitioner}
+              />
             ))
           ) : (
             <div className="text-center py-8 text-gray-500">
@@ -57,6 +48,26 @@ const PractitionerTab = () => {
         </div>
       </div>
     </>
+  )
+}
+
+function PractitionerCard({ practitioner }: { practitioner: Practitioner }) {
+  return (
+    <button>
+      <Card className="p-4 rounded-2xl hover:shadow-md transition-shadow">
+        <div className="flex items-center gap-4">
+          <UserRound className="w-8 h-8" />
+          <div>
+            <div className="font-medium">{practitioner.name}</div>
+            <div className="text-sm text-gray-500">
+              {practitioner.specialty}
+            </div>
+          </div>
+          <div className="flex-1"></div>
+          <ChevronRight strokeWidth={1.5} className="w-8 h-8 text-gray-400" />
+        </div>
+      </Card>
+    </button>
   )
 }
 

@@ -21,14 +21,14 @@ export interface MedicationReminder {
 
 // type Reminder = MedicationReminder | AppointmentReminder
 
-interface Medication {
+export interface Medication {
   id: string
   name: string
   description?: string
   reminders: MedicationReminder[]
 }
 
-interface Practitioner {
+export interface Practitioner {
   id: string
   name: string
   specialty: string

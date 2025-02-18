@@ -4,7 +4,9 @@ import { Card } from '@/components/ui/card'
 import { Pill, Phone, Check } from 'lucide-react'
 import {
   AppointmentReminder,
+  Medication,
   MedicationReminder,
+  Practitioner,
   useAppState,
 } from '@/context/app-state'
 
@@ -47,7 +49,18 @@ function ReminderCard({
     | (AppointmentReminder & {
         name: string
       })
-  setDrawerObject: (item: any) => void
+  setDrawerObject: (
+    object:
+      | (MedicationReminder & {
+          name: string
+        })
+      | (AppointmentReminder & {
+          name: string
+        })
+      | Medication
+      | Practitioner
+      | null
+  ) => void
 }) {
   return (
     <button

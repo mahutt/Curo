@@ -1,14 +1,14 @@
 'use client'
 
 import { useAppState } from '@/context/app-state'
-import { Bell, BookHeart, Pill } from 'lucide-react'
+import { Bell, MessageCircleHeart, Pill } from 'lucide-react'
 
 export default function TabBar() {
   const { state, changeTab } = useAppState()
   const iconSize = 32
 
   return (
-    <div className="bg-white text-slate-400 flex justify-center space-x-16 py-4 shadow-md">
+    <div className="bg-white text-slate-400 flex justify-center space-x-16 py-4 shadow-md border-t">
       <Tab
         icon={<Bell size={iconSize} strokeWidth={1.5} />}
         active={state.tab === 'reminders'}
@@ -20,7 +20,7 @@ export default function TabBar() {
         onClick={() => changeTab('medication')}
       />
       <Tab
-        icon={<BookHeart size={iconSize} strokeWidth={1.5} />}
+        icon={<MessageCircleHeart size={iconSize} strokeWidth={1.5} />}
         active={state.tab === 'hcp'}
         onClick={() => changeTab('hcp')}
       />
