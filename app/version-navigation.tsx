@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-const versions = ['v1']
+const versions = ['v1', 'v2']
 
 export default function VersionNavigation() {
   const pathname = usePathname()
