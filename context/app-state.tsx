@@ -7,6 +7,7 @@ export interface AppointmentReminder {
   time: string
   type: 'appointment'
   duration: string
+  taken: boolean
 }
 
 export interface MedicationReminder {
@@ -112,18 +113,21 @@ const initialState: AppState = {
           time: '10:00 AM',
           type: 'appointment',
           duration: '30 minutes',
+          taken: false,
         },
         {
           id: generateId(),
           time: '2:00 PM',
           type: 'appointment',
           duration: '30 minutes',
+          taken: false,
         },
         {
           id: generateId(),
           time: '4:00 PM',
           type: 'appointment',
           duration: '30 minutes',
+          taken: false,
         },
       ],
     },
@@ -326,19 +330,44 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
       reminderId: string,
       reminder: Partial<Omit<MedicationReminder, 'id' | 'type'>>
     ) => {
-      setState((prevState) => ({
-        ...prevState,
-        medications: prevState.medications.map((med) =>
+      setState((prevState) => {
+        const medication = prevState.medications.find((med) =>
           med.reminders.find((rem) => rem.id === reminderId)
-            ? {
-                ...med,
-                reminders: med.reminders.map((rem) =>
-                  rem.id === reminderId ? { ...rem, ...reminder } : rem
-                ),
-              }
-            : med
-        ),
-      }))
+        )
+        if (!medication) return prevState
+
+        const staleReminder = medication.reminders.find(
+          (rem) => rem.id === reminderId
+        )
+        if (!staleReminder) return prevState
+        const updatedReminder = { ...staleReminder, ...reminder }
+
+        let d = false
+        if (
+          prevState.drawerObject &&
+          'id' in prevState.drawerObject &&
+          prevState.drawerObject.id === reminderId
+        ) {
+          d = true
+        } else {
+        }
+
+        return {
+          ...prevState,
+          drawerObject: d
+            ? { ...updatedReminder, name: medication.name }
+            : prevState.drawerObject,
+          medications: prevState.medications.map((med) => {
+            if (med.id !== medication.id) return med
+            return {
+              ...med,
+              reminders: med.reminders.map((rem) =>
+                rem.id === reminderId ? updatedReminder : rem
+              ),
+            }
+          }),
+        }
+      })
     },
     []
   )

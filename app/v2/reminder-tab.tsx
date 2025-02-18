@@ -1,8 +1,12 @@
 'use client'
 import React from 'react'
 import { Card } from '@/components/ui/card'
-import { Pill, Phone } from 'lucide-react'
-import { useAppState } from '@/context/app-state'
+import { Pill, Phone, Check } from 'lucide-react'
+import {
+  AppointmentReminder,
+  MedicationReminder,
+  useAppState,
+} from '@/context/app-state'
 
 const ReminderTab = () => {
   const { groupReminders, setDrawerObject } = useAppState()
@@ -21,36 +25,59 @@ const ReminderTab = () => {
           {groupReminders().map((reminder) => (
             <div key={reminder.time} className="flex flex-col gap-1 px-4">
               <h2 className="text-gray-700 ml-2">{reminder.time}</h2>
-              {reminder.items.map((item) => (
-                <Card
-                  key={item.id}
-                  className="p-4 rounded-2xl cursor-pointer hover:shadow-md transition-shadow"
-                  onClick={() => {
-                    setDrawerObject(item)
-                  }}
-                >
-                  <div className="flex items-center gap-4">
-                    {item.type === 'medication' ? (
-                      <Pill className="w-8 h-8" />
-                    ) : (
-                      <Phone className="w-8 h-8" />
-                    )}
-                    <div>
-                      <div className="font-medium">{item.name}</div>
-                      <div className="text-sm text-gray-500 flex items-center">
-                        {item.type === 'medication'
-                          ? item.dosage
-                          : item.duration}
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+              {reminder.items.map((item) =>
+                ReminderCard({ item, setDrawerObject })
+              )}
             </div>
           ))}
         </div>
       </div>
     </>
+  )
+}
+
+function ReminderCard({
+  item,
+  setDrawerObject,
+}: {
+  item:
+    | (MedicationReminder & {
+        name: string
+      })
+    | (AppointmentReminder & {
+        name: string
+      })
+  setDrawerObject: (item: any) => void
+}) {
+  return (
+    <button
+      key={item.id}
+      onClick={() => {
+        setDrawerObject(item)
+      }}
+    >
+      <Card
+        className={`p-4 rounded-2xl cursor-pointer hover:shadow-md transition-shadow ${
+          item.taken ? 'bg-green-50 border-green-500' : ''
+        }`}
+      >
+        <div className="flex items-center gap-4">
+          {item.taken ? (
+            <Check className="w-8 h-8" />
+          ) : item.type === 'medication' ? (
+            <Pill className="w-8 h-8" />
+          ) : (
+            <Phone className="w-8 h-8" />
+          )}
+          <div>
+            <div className="font-medium">{item.name}</div>
+            <div className="text-sm text-gray-500 flex items-center">
+              {item.type === 'medication' ? item.dosage : item.duration}
+            </div>
+          </div>
+        </div>
+      </Card>
+    </button>
   )
 }
 
