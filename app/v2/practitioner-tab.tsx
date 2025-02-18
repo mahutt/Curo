@@ -58,7 +58,7 @@ function PractitionerCard({ practitioner }: { practitioner: Practitioner }) {
         <div className="flex items-center gap-4">
           <UserRound className="w-8 h-8" />
           <div>
-            <div className="font-medium">{practitioner.name}</div>
+            <div className="font-medium text-start">{practitioner.name}</div>
             <div className="text-sm text-gray-500">
               {practitioner.specialty}
             </div>

@@ -63,13 +63,11 @@ function MedicationReminderDrawerBody() {
   return (
     <div className="px-6 pt-2 pb-6">
       <div className="text-sm text-gray-500 mb-2">
-        Reminder:{' '}
-        {new Date(medicationReminder.time).toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        })}
+        Reminder: {medicationReminder.time}
       </div>
-      <div className="text-sm mb-4">Dosage: {medicationReminder.dosage}</div>
+      <div className="text-sm text-gray-500 mb-4">
+        Dosage: {medicationReminder.dosage}
+      </div>
 
       <div className="flex flex-col gap-2">
         <div className="flex gap-2">
