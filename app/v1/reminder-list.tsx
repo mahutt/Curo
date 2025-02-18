@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card'
 import { Pill, Phone } from 'lucide-react'
 import { useAppState } from '@/context/app-state'
 
-const ReminderList = () => {
+const ReminderTab = () => {
   const { groupReminders } = useAppState()
   return (
     <>
@@ -22,7 +22,7 @@ const ReminderList = () => {
             <div key={reminder.time} className="flex flex-col gap-1 px-4">
               <h2 className="text-gray-700 ml-2">{reminder.time}</h2>
               {reminder.items.map((item) => (
-                <Card key={item.name} className="p-4 rounded-2xl">
+                <Card key={item.id} className="p-4 rounded-2xl">
                   <div className="flex items-center gap-4">
                     {item.type === 'medication' ? (
                       <Pill className="w-8 h-8" />
@@ -48,4 +48,4 @@ const ReminderList = () => {
   )
 }
 
-export default ReminderList
+export default ReminderTab

@@ -2,9 +2,10 @@
 
 import { Button } from '@/components/ui/button'
 import { UserRound, Plus, Bell, Pill, BookHeart } from 'lucide-react'
-import ReminderList from './reminder-list'
+import ReminderTab from './reminder-list'
 import TabBar from './tab-bar'
 import { useAppState } from '@/context/app-state'
+import MedicationTab from './medication-tab'
 
 export default function v1() {
   const { state } = useAppState()
@@ -19,8 +20,8 @@ export default function v1() {
           <Plus size={iconSize} strokeWidth={1.5} />
         </Button>
       </div>
-      {state.tab === 'reminders' && <ReminderList />}
-      {state.tab === 'medication' && <div className="flex-1">Medication</div>}
+      {state.tab === 'reminders' && <ReminderTab />}
+      {state.tab === 'medication' && <MedicationTab />}
       {state.tab === 'hcp' && <div className="flex-1">HCP</div>}
       <TabBar />
     </div>
