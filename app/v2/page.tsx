@@ -7,6 +7,7 @@ import { useAppState } from '@/context/app-state'
 import MedicationTab from './medication-tab'
 import PractitionerTab from './practitioner-tab'
 import Drawer from './drawer'
+import Stack from './stack'
 
 export default function V2() {
   const { state } = useAppState()
@@ -28,6 +29,7 @@ export default function V2() {
         <TabBar />
       </div>
       <Drawer />
+      <Stack />
     </>
   )
 }

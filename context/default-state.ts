@@ -1,8 +1,9 @@
 import { AppState } from './app-state'
 export const generateId = () => Math.random().toString(36).substring(2, 9)
-export const INITIAL_APP_STATE: AppState = {
+export const DEFAULT_APP_STATE: AppState = {
   tab: 'reminders',
   drawerObject: null,
+  stackObject: null,
   medications: [
     {
       id: generateId(),

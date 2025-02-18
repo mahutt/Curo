@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
-import { INITIAL_APP_STATE, generateId } from './default-state'
+import { DEFAULT_APP_STATE, generateId } from './default-state'
 
 type Tab = 'reminders' | 'medication' | 'hcp'
 
@@ -37,6 +37,7 @@ export interface Practitioner {
 
 export interface AppState {
   tab: Tab
+  stackObject: Medication | Practitioner | null
   drawerObject:
     | (MedicationReminder & { name: string })
     | (AppointmentReminder & { name: string })
@@ -50,6 +51,7 @@ export interface AppState {
 interface AppContextValue {
   state: AppState
   changeTab: (tab: Tab) => void
+  setStackObject: (object: Medication | Practitioner | null) => void
   setDrawerObject: (
     object:
       | (MedicationReminder & { name: string })
@@ -83,8 +85,9 @@ interface AppContextValue {
 }
 
 const AppStateContext = createContext<AppContextValue>({
-  state: INITIAL_APP_STATE,
+  state: DEFAULT_APP_STATE,
   changeTab: () => {},
+  setStackObject: () => {},
   setDrawerObject: () => {},
   groupReminders: () => [],
   addMedication: () => '',
@@ -100,7 +103,7 @@ interface AppStateProviderProps {
 }
 
 export function AppStateProvider({ children }: AppStateProviderProps) {
-  const [state, setState] = useState<AppState>(INITIAL_APP_STATE)
+  const [state, setState] = useState<AppState>(DEFAULT_APP_STATE)
 
   const changeTab = useCallback((tab: Tab) => {
     setState((prevState) => ({
@@ -108,6 +111,16 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
       tab,
     }))
   }, [])
+
+  const setStackObject = useCallback(
+    (object: Medication | Practitioner | null) => {
+      setState((prevState) => ({
+        ...prevState,
+        stackObject: object,
+      }))
+    },
+    []
+  )
 
   const setDrawerObject = useCallback(
     (
@@ -196,12 +209,22 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
 
   const updateMedication = useCallback(
     (id: string, medication: Partial<Omit<Medication, 'id' | 'reminders'>>) => {
-      setState((prevState) => ({
-        ...prevState,
-        medications: prevState.medications.map((med) =>
-          med.id === id ? { ...med, ...medication } : med
-        ),
-      }))
+      setState((prevState) => {
+        const staleMedication = prevState.medications.find(
+          (med) => med.id === id
+        )
+        if (!staleMedication) return prevState
+        let updateStackObject = state.stackObject && state.stackObject.id === id
+        return {
+          ...prevState,
+          stackObject: medication
+            ? { ...staleMedication, ...medication }
+            : prevState.stackObject,
+          medications: prevState.medications.map((med) =>
+            med.id === id ? { ...med, ...medication } : med
+          ),
+        }
+      })
     },
     []
   )
@@ -305,6 +328,7 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
   const value = {
     state,
     changeTab,
+    setStackObject,
     setDrawerObject,
     groupReminders,
     addMedication,

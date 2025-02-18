@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Pill, Search, Filter } from 'lucide-react'
-import { useAppState } from '@/context/app-state'
+import { Medication, useAppState } from '@/context/app-state'
 
 const MedicationTab = () => {
   const { state } = useAppState()
@@ -35,18 +35,7 @@ const MedicationTab = () => {
         <div className="flex flex-col gap-1 px-4">
           {filteredMedications.length > 0 ? (
             filteredMedications.map((medication) => (
-              <Card key={medication.id} className="p-4 rounded-2xl">
-                <div className="flex items-center gap-4">
-                  <Pill className="w-8 h-8" />
-                  <div>
-                    <div className="font-medium">{medication.name}</div>
-                    <div className="text-sm text-gray-500">
-                      {medication.description ||
-                        `${medication.reminders.length} reminder(s)`}
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              <MedicationCard key={medication.id} medication={medication} />
             ))
           ) : (
             <div className="text-center py-8 text-gray-500">
@@ -56,6 +45,26 @@ const MedicationTab = () => {
         </div>
       </div>
     </>
+  )
+}
+
+function MedicationCard({ medication }: { medication: Medication }) {
+  const { setStackObject } = useAppState()
+  return (
+    <button onClick={() => setStackObject(medication)}>
+      <Card className="p-4 rounded-2xl hover:shadow-md transition-shadow">
+        <div className="flex items-center gap-4">
+          <Pill className="w-8 h-8" />
+          <div>
+            <div className="font-medium text-start">{medication.name}</div>
+            <div className="text-sm text-gray-500 text-start">
+              {medication.description ||
+                `${medication.reminders.length} reminder(s)`}
+            </div>
+          </div>
+        </div>
+      </Card>
+    </button>
   )
 }
 
