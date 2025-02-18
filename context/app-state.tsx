@@ -2,14 +2,14 @@ import React, { createContext, useContext, useState, useCallback } from 'react'
 
 type Tab = 'reminders' | 'medication' | 'hcp'
 
-interface AppointmentReminder {
+export interface AppointmentReminder {
   id: string
   time: string
   type: 'appointment'
   duration: string
 }
 
-interface MedicationReminder {
+export interface MedicationReminder {
   id: string
   time: string
   type: 'medication'
@@ -34,6 +34,13 @@ interface Practitioner {
 
 interface AppState {
   tab: Tab
+  drawerOpen: boolean
+  drawerObject:
+    | (MedicationReminder & { name: string })
+    | (AppointmentReminder & { name: string })
+    | Medication
+    | Practitioner
+    | null
   medications: Medication[]
   practitioners: Practitioner[]
 }
@@ -42,6 +49,8 @@ const generateId = () => Math.random().toString(36).substring(2, 9)
 
 const initialState: AppState = {
   tab: 'reminders',
+  drawerOpen: false,
+  drawerObject: null,
   medications: [
     {
       id: generateId(),
@@ -121,6 +130,15 @@ const initialState: AppState = {
 interface AppContextValue {
   state: AppState
   changeTab: (tab: Tab) => void
+  setDrawerOpen: (open: boolean) => void
+  setDrawerObject: (
+    object:
+      | (MedicationReminder & { name: string })
+      | (AppointmentReminder & { name: string })
+      | Medication
+      | Practitioner
+      | null
+  ) => void
   groupReminders: () => {
     time: string
     items: (
@@ -149,6 +167,8 @@ interface AppContextValue {
 const AppStateContext = createContext<AppContextValue>({
   state: initialState,
   changeTab: () => {},
+  setDrawerOpen: () => {},
+  setDrawerObject: () => {},
   groupReminders: () => [],
   addMedication: () => '',
   updateMedication: () => {},
@@ -171,6 +191,30 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
       tab,
     }))
   }, [])
+
+  const setDrawerOpen = useCallback((open: boolean) => {
+    setState((prevState) => ({
+      ...prevState,
+      drawerOpen: open,
+    }))
+  }, [])
+
+  const setDrawerObject = useCallback(
+    (
+      object:
+        | (MedicationReminder & { name: string })
+        | (AppointmentReminder & { name: string })
+        | Medication
+        | Practitioner
+        | null
+    ) => {
+      setState((prevState) => ({
+        ...prevState,
+        drawerObject: object,
+      }))
+    },
+    []
+  )
 
   const groupReminders = useCallback(() => {
     const appointmentReminders: Array<AppointmentReminder & { name: string }> =
@@ -327,6 +371,8 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
   const value = {
     state,
     changeTab,
+    setDrawerOpen,
+    setDrawerObject,
     groupReminders,
     addMedication,
     updateMedication,

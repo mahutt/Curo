@@ -5,7 +5,7 @@ import { Pill, Phone } from 'lucide-react'
 import { useAppState } from '@/context/app-state'
 
 const ReminderTab = () => {
-  const { groupReminders } = useAppState()
+  const { groupReminders, setDrawerOpen, setDrawerObject } = useAppState()
   return (
     <>
       <div className="flex justify-between mb-6 px-4">
@@ -22,7 +22,14 @@ const ReminderTab = () => {
             <div key={reminder.time} className="flex flex-col gap-1 px-4">
               <h2 className="text-gray-700 ml-2">{reminder.time}</h2>
               {reminder.items.map((item) => (
-                <Card key={item.id} className="p-4 rounded-2xl">
+                <Card
+                  key={item.id}
+                  className="p-4 rounded-2xl cursor-pointer hover:shadow-md transition-shadow"
+                  onClick={() => {
+                    setDrawerOpen(true)
+                    setDrawerObject(item)
+                  }}
+                >
                   <div className="flex items-center gap-4">
                     {item.type === 'medication' ? (
                       <Pill className="w-8 h-8" />
