@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { UserRound, Plus, Bell, Pill, BookHeart } from 'lucide-react'
 import ReminderList from './reminder-list'
+import TabBar from './tab-bar'
 
 export default function v1() {
   const iconSize = 32
@@ -17,11 +18,7 @@ export default function v1() {
       <div className="flex-1">
         <ReminderList />
       </div>
-      <div className="bg-white text-slate-400 flex justify-center space-x-16 py-4 shadow-md">
-        <Bell size={iconSize} strokeWidth={1.5} />
-        <Pill size={iconSize} strokeWidth={1.5} />
-        <BookHeart size={iconSize} strokeWidth={1.5} />
-      </div>
+      <TabBar />
     </div>
   )
 }
