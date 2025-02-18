@@ -10,7 +10,7 @@ export default function Drawer() {
 
   return (
     <div
-      className={`absolute inset-0 bg-black/50 transition-opacity ${
+      className={`absolute inset-0 z-30 bg-black/50 transition-opacity ${
         open ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
       onClick={() => setDrawerObject(null)}
