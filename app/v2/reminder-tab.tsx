@@ -5,7 +5,7 @@ import { Pill, Phone } from 'lucide-react'
 import { useAppState } from '@/context/app-state'
 
 const ReminderTab = () => {
-  const { groupReminders, setDrawerOpen, setDrawerObject } = useAppState()
+  const { groupReminders, setDrawerObject } = useAppState()
   return (
     <>
       <div className="flex justify-between mb-6 px-4">
@@ -26,7 +26,6 @@ const ReminderTab = () => {
                   key={item.id}
                   className="p-4 rounded-2xl cursor-pointer hover:shadow-md transition-shadow"
                   onClick={() => {
-                    setDrawerOpen(true)
                     setDrawerObject(item)
                   }}
                 >

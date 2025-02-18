@@ -14,6 +14,7 @@ export interface MedicationReminder {
   time: string
   type: 'medication'
   dosage: string
+  taken: boolean
 }
 
 // type Reminder = MedicationReminder | AppointmentReminder
@@ -34,7 +35,6 @@ interface Practitioner {
 
 interface AppState {
   tab: Tab
-  drawerOpen: boolean
   drawerObject:
     | (MedicationReminder & { name: string })
     | (AppointmentReminder & { name: string })
@@ -49,7 +49,6 @@ const generateId = () => Math.random().toString(36).substring(2, 9)
 
 const initialState: AppState = {
   tab: 'reminders',
-  drawerOpen: false,
   drawerObject: null,
   medications: [
     {
@@ -62,12 +61,14 @@ const initialState: AppState = {
           time: '10:00 AM',
           type: 'medication',
           dosage: '1 pill',
+          taken: true,
         },
         {
           id: generateId(),
           time: '4:00 PM',
           type: 'medication',
           dosage: '1 pill',
+          taken: false,
         },
       ],
     },
@@ -81,6 +82,7 @@ const initialState: AppState = {
           time: '12:00 PM',
           type: 'medication',
           dosage: '2 pills',
+          taken: false,
         },
       ],
     },
@@ -94,6 +96,7 @@ const initialState: AppState = {
           time: '2:00 PM',
           type: 'medication',
           dosage: '1 pill',
+          taken: false,
         },
       ],
     },
@@ -130,7 +133,6 @@ const initialState: AppState = {
 interface AppContextValue {
   state: AppState
   changeTab: (tab: Tab) => void
-  setDrawerOpen: (open: boolean) => void
   setDrawerObject: (
     object:
       | (MedicationReminder & { name: string })
@@ -157,7 +159,6 @@ interface AppContextValue {
     reminder: Omit<MedicationReminder, 'id' | 'type'>
   ) => string
   updateMedicationReminder: (
-    medicationId: string,
     reminderId: string,
     reminder: Partial<Omit<MedicationReminder, 'id' | 'type'>>
   ) => void
@@ -167,7 +168,6 @@ interface AppContextValue {
 const AppStateContext = createContext<AppContextValue>({
   state: initialState,
   changeTab: () => {},
-  setDrawerOpen: () => {},
   setDrawerObject: () => {},
   groupReminders: () => [],
   addMedication: () => '',
@@ -189,13 +189,6 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
     setState((prevState) => ({
       ...prevState,
       tab,
-    }))
-  }, [])
-
-  const setDrawerOpen = useCallback((open: boolean) => {
-    setState((prevState) => ({
-      ...prevState,
-      drawerOpen: open,
     }))
   }, [])
 
@@ -330,14 +323,13 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
 
   const updateMedicationReminder = useCallback(
     (
-      medicationId: string,
       reminderId: string,
       reminder: Partial<Omit<MedicationReminder, 'id' | 'type'>>
     ) => {
       setState((prevState) => ({
         ...prevState,
         medications: prevState.medications.map((med) =>
-          med.id === medicationId
+          med.reminders.find((rem) => rem.id === reminderId)
             ? {
                 ...med,
                 reminders: med.reminders.map((rem) =>
@@ -371,7 +363,6 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
   const value = {
     state,
     changeTab,
-    setDrawerOpen,
     setDrawerObject,
     groupReminders,
     addMedication,

@@ -5,19 +5,20 @@ import { Button } from '@/components/ui/button'
 import { X, Bell, Pencil, Check } from 'lucide-react'
 
 export default function Drawer() {
-  const { state, setDrawerOpen } = useAppState()
+  const { state, setDrawerObject } = useAppState()
+  const open = state.drawerObject !== null
 
   return (
     <div
       className={`absolute inset-0 bg-black/50 transition-opacity ${
-        state.drawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        open ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
-      onClick={() => setDrawerOpen(false)}
+      onClick={() => setDrawerObject(null)}
     >
       <div className="relative w-full h-full">
         <div
           className={`absolute bottom-0 inset-x-0 bg-white rounded-t-lg transition-transform ${
-            state.drawerOpen ? 'translate-y-0' : 'translate-y-full'
+            open ? 'translate-y-0' : 'translate-y-full'
           }`}
           onClick={(e) => e.stopPropagation()}
         >
@@ -29,7 +30,7 @@ export default function Drawer() {
               variant="ghost"
               size="icon"
               className="h-8 w-8 rounded-full"
-              onClick={() => setDrawerOpen(false)}
+              onClick={() => setDrawerObject(null)}
             >
               <X className="h-4 w-4" />
             </Button>
@@ -37,9 +38,7 @@ export default function Drawer() {
           {state.drawerObject &&
             'type' in state.drawerObject &&
             state.drawerObject.type === 'medication' && (
-              <MedicationReminderDrawerBody
-                medicationReminder={state.drawerObject}
-              />
+              <MedicationReminderDrawerBody />
             )}
         </div>
       </div>
@@ -47,13 +46,19 @@ export default function Drawer() {
   )
 }
 
-function MedicationReminderDrawerBody({
-  medicationReminder,
-}: {
-  medicationReminder: MedicationReminder & { name: string }
-}) {
-  const { setDrawerOpen } = useAppState()
-  const [isTaken, setIsTaken] = React.useState(false)
+function MedicationReminderDrawerBody() {
+  const { state, setDrawerObject, updateMedicationReminder } = useAppState()
+  const medicationReminder = state.drawerObject as MedicationReminder & {
+    name: string
+  }
+
+  if (
+    !medicationReminder ||
+    !('type' in medicationReminder) ||
+    medicationReminder.type !== 'medication'
+  ) {
+    return null
+  }
 
   return (
     <div className="px-6 pt-2 pb-6">
@@ -71,7 +76,7 @@ function MedicationReminderDrawerBody({
           <Button
             variant="outline"
             className="flex-1 justify-center"
-            onClick={() => setDrawerOpen(false)}
+            onClick={() => setDrawerObject(null)}
           >
             <Bell className="mr-1 h-4 w-4" />
             Snooze
@@ -79,7 +84,7 @@ function MedicationReminderDrawerBody({
           <Button
             variant="outline"
             className="flex-1 justify-center"
-            onClick={() => setDrawerOpen(false)}
+            onClick={() => setDrawerObject(null)}
           >
             <Pencil className="mr-1 h-4 w-4" />
             Edit
@@ -88,19 +93,21 @@ function MedicationReminderDrawerBody({
 
         <Button
           onClick={() => {
-            if (!isTaken) {
-              setDrawerOpen(false)
+            if (!medicationReminder.taken) {
+              setDrawerObject(null)
             }
-            setIsTaken((prev) => !prev)
+            updateMedicationReminder(medicationReminder.id, {
+              taken: !medicationReminder.taken,
+            })
           }}
-          variant={isTaken ? 'outline' : 'default'}
+          variant={medicationReminder.taken ? 'outline' : 'default'}
         >
-          {isTaken ? (
+          {medicationReminder.taken ? (
             <X className="h-4 w-4 mr-2" />
           ) : (
             <Check className="h-4 w-4 mr-2" />
           )}
-          {isTaken ? 'Mark as not taken' : 'Mark as taken'}
+          {medicationReminder.taken ? 'Mark as not taken' : 'Mark as taken'}
         </Button>
       </div>
     </div>

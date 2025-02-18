@@ -9,7 +9,7 @@ import MedicationTab from './medication-tab'
 import PractitionerTab from './practitioner-tab'
 import Drawer from './drawer'
 
-export default function V1() {
+export default function V2() {
   const { state } = useAppState()
   const iconSize = 32
   return (

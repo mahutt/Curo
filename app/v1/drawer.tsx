@@ -5,19 +5,20 @@ import { Button } from '@/components/ui/button'
 import { X, Bell, Pencil, Check } from 'lucide-react'
 
 export default function Drawer() {
-  const { state, setDrawerOpen } = useAppState()
+  const { state, setDrawerObject } = useAppState()
+  const open = state.drawerObject !== null
 
   return (
     <div
       className={`absolute inset-0 bg-black/50 transition-opacity ${
-        state.drawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        open ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
-      onClick={() => setDrawerOpen(false)}
+      onClick={() => setDrawerObject(null)}
     >
       <div className="relative w-full h-full">
         <div
           className={`absolute bottom-0 inset-x-0 bg-white rounded-t-lg transition-transform ${
-            state.drawerOpen ? 'translate-y-0' : 'translate-y-full'
+            open ? 'translate-y-0' : 'translate-y-full'
           }`}
           onClick={(e) => e.stopPropagation()}
         >
@@ -29,7 +30,7 @@ export default function Drawer() {
               variant="ghost"
               size="icon"
               className="h-8 w-8 rounded-full"
-              onClick={() => setDrawerOpen(false)}
+              onClick={() => setDrawerObject(null)}
             >
               <X className="h-4 w-4" />
             </Button>
@@ -52,7 +53,7 @@ function MedicationReminderDrawerBody({
 }: {
   medicationReminder: MedicationReminder & { name: string }
 }) {
-  const { setDrawerOpen } = useAppState()
+  const { setDrawerObject } = useAppState()
   const [isTaken, setIsTaken] = React.useState(false)
 
   return (
@@ -71,7 +72,7 @@ function MedicationReminderDrawerBody({
           <Button
             variant="outline"
             className="flex-1 justify-center"
-            onClick={() => setDrawerOpen(false)}
+            onClick={() => setDrawerObject(null)}
           >
             <Bell className="mr-1 h-4 w-4" />
             Snooze
@@ -79,7 +80,7 @@ function MedicationReminderDrawerBody({
           <Button
             variant="outline"
             className="flex-1 justify-center"
-            onClick={() => setDrawerOpen(false)}
+            onClick={() => setDrawerObject(null)}
           >
             <Pencil className="mr-1 h-4 w-4" />
             Edit
@@ -89,7 +90,7 @@ function MedicationReminderDrawerBody({
         <Button
           onClick={() => {
             if (!isTaken) {
-              setDrawerOpen(false)
+              setDrawerObject(null)
             }
             setIsTaken((prev) => !prev)
           }}
