@@ -18,7 +18,7 @@ const PractitionerTab = () => {
         <div className="flex-1 relative">
           <input
             type="text"
-            placeholder="Search medications..."
+            placeholder="Search practitioners..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full py-2 pl-10 pr-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
