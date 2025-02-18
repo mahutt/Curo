@@ -1,9 +1,13 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { UserRound, Plus, Bell, Pill, BookHeart } from 'lucide-react'
 import ReminderList from './reminder-list'
 import TabBar from './tab-bar'
+import { useAppState } from '@/context/app-state'
 
 export default function v1() {
+  const { state } = useAppState()
   const iconSize = 32
   return (
     <div className="w-full h-full flex flex-col bg-slate-100">
@@ -15,7 +19,9 @@ export default function v1() {
           <Plus size={iconSize} strokeWidth={1.5} />
         </Button>
       </div>
-      <ReminderList />
+      {state.tab === 'reminders' && <ReminderList />}
+      {state.tab === 'medication' && <div className="flex-1">Medication</div>}
+      {state.tab === 'hcp' && <div className="flex-1">HCP</div>}
       <TabBar />
     </div>
   )

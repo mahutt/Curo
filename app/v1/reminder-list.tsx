@@ -1,56 +1,11 @@
+'use client'
 import React from 'react'
 import { Card } from '@/components/ui/card'
 import { Pill, Phone } from 'lucide-react'
-
-const reminders = [
-  {
-    time: '10:00 AM',
-    items: [
-      {
-        type: 'medication',
-        name: 'Oxycotin',
-        dosage: '1 pill',
-      },
-      {
-        type: 'medication',
-        name: 'Ibuprofen',
-        dosage: '2 pills',
-      },
-    ],
-  },
-  {
-    time: '12:00 PM',
-    items: [
-      {
-        type: 'medication',
-        name: 'Oxycotin',
-        dosage: '1 pill',
-      },
-      {
-        type: 'medication',
-        name: 'Ibuprofen',
-        dosage: '2 pills',
-      },
-    ],
-  },
-  {
-    time: '2:00 PM',
-    items: [
-      {
-        type: 'medication',
-        name: 'Oxycotin',
-        dosage: '1 pill',
-      },
-      {
-        type: 'appointment',
-        name: 'Ibuprofen',
-        dosage: '2 pills',
-      },
-    ],
-  },
-]
+import { useAppState } from '@/context/app-state'
 
 const ReminderList = () => {
+  const { groupReminders } = useAppState()
   return (
     <>
       <div className="flex justify-between mb-6 px-4">
@@ -63,7 +18,7 @@ const ReminderList = () => {
       </div>
       <div className="flex-1 overflow-y-auto pb-4">
         <div className="flex flex-col gap-4">
-          {reminders.map((reminder) => (
+          {groupReminders().map((reminder) => (
             <div key={reminder.time} className="flex flex-col gap-1 px-4">
               <h2 className="text-gray-700 ml-2">{reminder.time}</h2>
               {reminder.items.map((item) => (
@@ -77,7 +32,9 @@ const ReminderList = () => {
                     <div>
                       <div className="font-medium">{item.name}</div>
                       <div className="text-sm text-gray-500 flex items-center">
-                        {item.dosage}
+                        {item.type === 'medication'
+                          ? item.dosage
+                          : item.duration}
                       </div>
                     </div>
                   </div>
