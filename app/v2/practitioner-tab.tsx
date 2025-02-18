@@ -32,7 +32,7 @@ const PractitionerTab = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto pb-4">
-        <div className="flex flex-col gap-4 px-4">
+        <div className="flex flex-col gap-1 px-4">
           {filteredPractitioners.length > 0 ? (
             filteredPractitioners.map((practitioner) => (
               <Card key={practitioner.id} className="p-4 rounded-2xl">

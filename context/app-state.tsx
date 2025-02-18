@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
+import { INITIAL_APP_STATE, generateId } from './default-state'
 
 type Tab = 'reminders' | 'medication' | 'hcp'
 
@@ -34,7 +35,7 @@ interface Practitioner {
   reminders: AppointmentReminder[]
 }
 
-interface AppState {
+export interface AppState {
   tab: Tab
   drawerObject:
     | (MedicationReminder & { name: string })
@@ -44,94 +45,6 @@ interface AppState {
     | null
   medications: Medication[]
   practitioners: Practitioner[]
-}
-
-const generateId = () => Math.random().toString(36).substring(2, 9)
-
-const initialState: AppState = {
-  tab: 'reminders',
-  drawerObject: null,
-  medications: [
-    {
-      id: generateId(),
-      name: 'Oxycotin',
-      description: 'Pain medication',
-      reminders: [
-        {
-          id: generateId(),
-          time: '10:00 AM',
-          type: 'medication',
-          dosage: '1 pill',
-          taken: true,
-        },
-        {
-          id: generateId(),
-          time: '4:00 PM',
-          type: 'medication',
-          dosage: '1 pill',
-          taken: false,
-        },
-      ],
-    },
-    {
-      id: generateId(),
-      name: 'Aspirin',
-      description: 'Pain reliever and blood thinner',
-      reminders: [
-        {
-          id: generateId(),
-          time: '12:00 PM',
-          type: 'medication',
-          dosage: '2 pills',
-          taken: false,
-        },
-      ],
-    },
-    {
-      id: generateId(),
-      name: 'Lipitor',
-      description: 'Cholesterol medication',
-      reminders: [
-        {
-          id: generateId(),
-          time: '2:00 PM',
-          type: 'medication',
-          dosage: '1 pill',
-          taken: false,
-        },
-      ],
-    },
-  ],
-  practitioners: [
-    {
-      id: generateId(),
-      name: 'Dr. Smith',
-      specialty: 'Cardiologist',
-      reminders: [
-        {
-          id: generateId(),
-          time: '10:00 AM',
-          type: 'appointment',
-          duration: '30 minutes',
-          taken: false,
-        },
-        {
-          id: generateId(),
-          time: '2:00 PM',
-          type: 'appointment',
-          duration: '30 minutes',
-          taken: false,
-        },
-        {
-          id: generateId(),
-          time: '4:00 PM',
-          type: 'appointment',
-          duration: '30 minutes',
-          taken: false,
-        },
-      ],
-    },
-  ],
 }
 
 interface AppContextValue {
@@ -170,7 +83,7 @@ interface AppContextValue {
 }
 
 const AppStateContext = createContext<AppContextValue>({
-  state: initialState,
+  state: INITIAL_APP_STATE,
   changeTab: () => {},
   setDrawerObject: () => {},
   groupReminders: () => [],
@@ -187,7 +100,7 @@ interface AppStateProviderProps {
 }
 
 export function AppStateProvider({ children }: AppStateProviderProps) {
-  const [state, setState] = useState<AppState>(initialState)
+  const [state, setState] = useState<AppState>(INITIAL_APP_STATE)
 
   const changeTab = useCallback((tab: Tab) => {
     setState((prevState) => ({

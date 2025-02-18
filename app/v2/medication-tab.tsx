@@ -32,7 +32,7 @@ const MedicationTab = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto pb-4">
-        <div className="flex flex-col gap-4 px-4">
+        <div className="flex flex-col gap-1 px-4">
           {filteredMedications.length > 0 ? (
             filteredMedications.map((medication) => (
               <Card key={medication.id} className="p-4 rounded-2xl">
