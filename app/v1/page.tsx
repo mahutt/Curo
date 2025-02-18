@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { UserRound, Plus, Bell, Pill, BookHeart } from 'lucide-react'
-import ReminderTab from './reminder-list'
+import ReminderTab from './reminder-tab'
 import TabBar from './tab-bar'
 import { useAppState } from '@/context/app-state'
 import MedicationTab from './medication-tab'
