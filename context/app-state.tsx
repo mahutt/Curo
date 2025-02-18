@@ -38,6 +38,36 @@ const initialState: AppState = {
       name: 'Dr. Smith',
       duration: '30 minutes',
     },
+    {
+      time: '12:00 PM',
+      type: 'medication',
+      name: 'Aspirin',
+      dosage: '2 pills',
+    },
+    {
+      time: '2:00 PM',
+      type: 'medication',
+      name: 'Lipitor',
+      dosage: '1 pill',
+    },
+    {
+      time: '2:00 PM',
+      type: 'appointment',
+      name: 'Dr. Smith',
+      duration: '30 minutes',
+    },
+    {
+      time: '4:00 PM',
+      type: 'medication',
+      name: 'Oxycotin',
+      dosage: '1 pill',
+    },
+    {
+      time: '4:00 PM',
+      type: 'appointment',
+      name: 'Dr. Smith',
+      duration: '30 minutes',
+    },
   ],
 }
 
