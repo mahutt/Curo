@@ -15,9 +15,7 @@ export default function v1() {
           <Plus size={iconSize} strokeWidth={1.5} />
         </Button>
       </div>
-      <div className="flex-1">
-        <ReminderList />
-      </div>
+      <ReminderList />
       <TabBar />
     </div>
   )

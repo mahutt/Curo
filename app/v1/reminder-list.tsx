@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from '@/components/ui/card'
-import { Pill, Check, Phone } from 'lucide-react'
+import { Pill, Phone } from 'lucide-react'
 
 const reminders = [
   {
@@ -52,7 +52,7 @@ const reminders = [
 
 const ReminderList = () => {
   return (
-    <div className="max-w-md mx-auto">
+    <>
       <div className="flex justify-between mb-6 px-4">
         <button className="text-sm font-medium text-gray-600 px-3 py-1 rounded-full border border-gray-300">
           Show All
@@ -61,7 +61,7 @@ const ReminderList = () => {
           Today
         </button>
       </div>
-      <div className="overflow-y-auto h-[485px]">
+      <div className="flex-1 overflow-y-auto pb-4">
         <div className="flex flex-col gap-4">
           {reminders.map((reminder) => (
             <div key={reminder.time} className="flex flex-col gap-1 px-4">
@@ -87,7 +87,7 @@ const ReminderList = () => {
           ))}
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
