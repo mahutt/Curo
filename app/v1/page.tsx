@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { UserRound, Plus, Bell, Pill, BookHeart } from 'lucide-react'
+import { UserRound, Plus } from 'lucide-react'
 import ReminderTab from './reminder-tab'
 import TabBar from './tab-bar'
 import { useAppState } from '@/context/app-state'
@@ -9,7 +9,7 @@ import MedicationTab from './medication-tab'
 import PractitionerTab from './practitioner-tab'
 import Drawer from './drawer'
 
-export default function v1() {
+export default function V1() {
   const { state } = useAppState()
   const iconSize = 32
   return (
