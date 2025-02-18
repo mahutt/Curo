@@ -6,6 +6,7 @@ import ReminderTab from './reminder-tab'
 import TabBar from './tab-bar'
 import { useAppState } from '@/context/app-state'
 import MedicationTab from './medication-tab'
+import PractitionerTab from './practitioner-tab'
 
 export default function v1() {
   const { state } = useAppState()
@@ -22,7 +23,7 @@ export default function v1() {
       </div>
       {state.tab === 'reminders' && <ReminderTab />}
       {state.tab === 'medication' && <MedicationTab />}
-      {state.tab === 'hcp' && <div className="flex-1">HCP</div>}
+      {state.tab === 'hcp' && <PractitionerTab />}
       <TabBar />
     </div>
   )

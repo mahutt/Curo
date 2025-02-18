@@ -6,7 +6,6 @@ interface AppointmentReminder {
   id: string
   time: string
   type: 'appointment'
-  name: string
   duration: string
 }
 
@@ -26,10 +25,17 @@ interface Medication {
   reminders: MedicationReminder[]
 }
 
+interface Practitioner {
+  id: string
+  name: string
+  specialty: string
+  reminders: AppointmentReminder[]
+}
+
 interface AppState {
   tab: Tab
   medications: Medication[]
-  appointmentReminders: AppointmentReminder[]
+  practitioners: Practitioner[]
 }
 
 const generateId = () => Math.random().toString(36).substring(2, 9)
@@ -83,27 +89,31 @@ const initialState: AppState = {
       ],
     },
   ],
-  appointmentReminders: [
+  practitioners: [
     {
       id: generateId(),
-      time: '10:00 AM',
-      type: 'appointment',
       name: 'Dr. Smith',
-      duration: '30 minutes',
-    },
-    {
-      id: generateId(),
-      time: '2:00 PM',
-      type: 'appointment',
-      name: 'Dr. Smith',
-      duration: '30 minutes',
-    },
-    {
-      id: generateId(),
-      time: '4:00 PM',
-      type: 'appointment',
-      name: 'Dr. Smith',
-      duration: '30 minutes',
+      specialty: 'Cardiologist',
+      reminders: [
+        {
+          id: generateId(),
+          time: '10:00 AM',
+          type: 'appointment',
+          duration: '30 minutes',
+        },
+        {
+          id: generateId(),
+          time: '2:00 PM',
+          type: 'appointment',
+          duration: '30 minutes',
+        },
+        {
+          id: generateId(),
+          time: '4:00 PM',
+          type: 'appointment',
+          duration: '30 minutes',
+        },
+      ],
     },
   ],
 }
@@ -113,7 +123,10 @@ interface AppContextValue {
   changeTab: (tab: Tab) => void
   groupReminders: () => {
     time: string
-    items: ((MedicationReminder & { name: string }) | AppointmentReminder)[]
+    items: (
+      | (MedicationReminder & { name: string })
+      | (AppointmentReminder & { name: string })
+    )[]
   }[]
   addMedication: (medication: Omit<Medication, 'id' | 'reminders'>) => string
   updateMedication: (
@@ -160,9 +173,14 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
   }, [])
 
   const groupReminders = useCallback(() => {
-    const appointmentReminders = [...state.appointmentReminders]
+    const appointmentReminders: Array<AppointmentReminder & { name: string }> =
+      state.practitioners.flatMap((practitioner) =>
+        practitioner.reminders.map((reminder: AppointmentReminder) => ({
+          ...reminder,
+          name: practitioner.name,
+        }))
+      )
 
-    // Create medication reminders with added medication name
     const medicationReminders: Array<MedicationReminder & { name: string }> =
       state.medications.flatMap((med) =>
         med.reminders.map((reminder: MedicationReminder) => ({
@@ -171,15 +189,17 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
         }))
       )
 
-    // Combine all reminders
     const allReminders: (
       | (MedicationReminder & { name: string })
-      | AppointmentReminder
+      | (AppointmentReminder & { name: string })
     )[] = [...appointmentReminders, ...medicationReminders]
 
     const grouped: Record<
       string,
-      ((MedicationReminder & { name: string }) | AppointmentReminder)[]
+      (
+        | (MedicationReminder & { name: string })
+        | (AppointmentReminder & { name: string })
+      )[]
     > = {}
 
     allReminders.forEach((reminder) => {
@@ -199,7 +219,7 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
     })
 
     return result
-  }, [state.medications, state.appointmentReminders])
+  }, [state.medications, state.practitioners])
 
   const addMedication = useCallback(
     (medication: Omit<Medication, 'id' | 'reminders'>) => {
