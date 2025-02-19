@@ -39,7 +39,7 @@ function Tab({
   onClick: () => void
 }) {
   return (
-    <button className={active ? 'text-blue-600' : ''} onClick={onClick}>
+    <button className={active ? 'text-green-500' : ''} onClick={onClick}>
       {icon}
     </button>
   )
