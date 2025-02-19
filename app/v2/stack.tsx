@@ -1,7 +1,7 @@
 'use client'
 
 import { useAppState } from '@/context/app-state'
-import { Check, ChevronLeft, Pencil, Save, X } from 'lucide-react'
+import { Check, ChevronLeft, Pencil, X } from 'lucide-react'
 import { getTabName } from '@/context/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
