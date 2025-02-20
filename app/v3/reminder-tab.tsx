@@ -10,16 +10,14 @@ import {
   useAppState,
 } from '@/context/app-state'
 import DateFilter from './date-filter'
+import ReminderFilter from './reminder-filter'
 
 const ReminderTab = () => {
   const { groupReminders, setDrawerObject } = useAppState()
   return (
     <>
       <div className="flex justify-between mb-6 px-4">
-        <button className="text-sm font-medium text-gray-600 px-3 py-1 rounded-full border border-gray-300 flex items-center gap-1">
-          Show All
-          <ChevronDown className="w-4 h-4" />
-        </button>
+        <ReminderFilter />
         <DateFilter />
       </div>
       <div className="flex-1 overflow-y-auto pb-4">

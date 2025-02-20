@@ -48,6 +48,15 @@ export default function DateFilter() {
     setIsOpen(false)
   }
 
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (isOpen) setIsOpen(false)
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [isOpen])
+
   return (
     <>
       <div className="relative z-20">
@@ -62,7 +71,7 @@ export default function DateFilter() {
         >
           {buttonLabel}
           <ChevronDown
-            className={`w-4 h-4 transition-transform duration-300 ease-in-out ${
+            className={`w-4 h-4 transition-transform duration-200 ease-in-out ${
               isOpen ? 'rotate-180' : ''
             }`}
           />
