@@ -57,6 +57,7 @@ export interface AppState {
     | null
   medications: Medication[]
   practitioners: Practitioner[]
+  addMenuOpen: boolean
 }
 
 interface AppContextValue {
@@ -93,6 +94,7 @@ interface AppContextValue {
     reminder: Partial<Omit<MedicationReminder, 'id' | 'type'>>
   ) => void
   deleteMedicationReminder: (medicationId: string, reminderId: string) => void
+  setAddMenuOpen: (isOpen: boolean) => void
 }
 
 const AppStateContext = createContext<AppContextValue>({
@@ -107,6 +109,7 @@ const AppStateContext = createContext<AppContextValue>({
   addMedicationReminder: () => '',
   updateMedicationReminder: () => {},
   deleteMedicationReminder: () => {},
+  setAddMenuOpen: () => {},
 })
 
 interface AppStateProviderProps {
@@ -336,6 +339,13 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
     []
   )
 
+  const setAddMenuOpen = useCallback((isOpen: boolean) => {
+    setState((prevState) => ({
+      ...prevState,
+      addMenuOpen: isOpen,
+    }))
+  }, [])
+
   const value = {
     state,
     changeTab,
@@ -348,6 +358,7 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
     addMedicationReminder,
     updateMedicationReminder,
     deleteMedicationReminder,
+    setAddMenuOpen,
   }
 
   return (

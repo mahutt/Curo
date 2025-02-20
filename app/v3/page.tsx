@@ -6,14 +6,16 @@ import TabBar from './tab-bar'
 import { useAppState } from '@/context/app-state'
 import MedicationTab from './medication-tab'
 import PractitionerTab from './practitioner-tab'
+import SlideDownPanel from './slide-down-panel'
 import Drawer from './drawer'
 import Stack from './stack/stack'
 
 export default function V2() {
-  const { state, setStackObject } = useAppState()
+  const { state, setStackObject, setAddMenuOpen } = useAppState()
   const iconSize = 32
   return (
     <>
+      <SlideDownPanel />
       <div className="w-full h-full flex flex-col bg-slate-100">
         <div className="flex justify-between items-center p-4">
           <button
@@ -22,7 +24,10 @@ export default function V2() {
           >
             <UserRound size={iconSize} strokeWidth={1.5} />
           </button>
-          <button className="flex justify-center items-center w-12 h-12">
+          <button
+            className="flex justify-center items-center w-12 h-12"
+            onClick={() => setAddMenuOpen(true)}
+          >
             <Plus size={iconSize} strokeWidth={1.5} />
           </button>
         </div>

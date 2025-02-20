@@ -100,4 +100,5 @@ export const DEFAULT_APP_STATE: AppState = {
       reminders: [],
     },
   ],
+  addMenuOpen: false,
 }
