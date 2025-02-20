@@ -4,7 +4,7 @@ import { useAppState } from '@/context/app-state'
 import { Bell, MessageCircleHeart, Pill } from 'lucide-react'
 
 export default function TabBar() {
-  const { state, changeTab } = useAppState()
+  const { state, changeTab, setStackObject } = useAppState()
   const iconSize = 32
   const strokeWidth = 1.6
 
@@ -13,17 +13,26 @@ export default function TabBar() {
       <Tab
         icon={<Bell size={iconSize} strokeWidth={strokeWidth} />}
         active={state.tab === 'reminders'}
-        onClick={() => changeTab('reminders')}
+        onClick={() => {
+          setStackObject(null)
+          changeTab('reminders')
+        }}
       />
       <Tab
         icon={<Pill size={iconSize} strokeWidth={strokeWidth} />}
         active={state.tab === 'medication'}
-        onClick={() => changeTab('medication')}
+        onClick={() => {
+          setStackObject(null)
+          changeTab('medication')
+        }}
       />
       <Tab
         icon={<MessageCircleHeart size={iconSize} strokeWidth={strokeWidth} />}
         active={state.tab === 'hcp'}
-        onClick={() => changeTab('hcp')}
+        onClick={() => {
+          setStackObject(null)
+          changeTab('hcp')
+        }}
       />
     </div>
   )
