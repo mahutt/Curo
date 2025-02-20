@@ -6,7 +6,7 @@ import { Practitioner, useAppState } from '@/context/app-state'
 import PractitionerFilter from './practitioner-filter'
 
 const PractitionerTab = () => {
-  const { state } = useAppState()
+  const { state, setStackObject } = useAppState()
   const [searchTerm, setSearchTerm] = useState('')
 
   const filteredPractitioners = state.practitioners.filter((practitioner) =>
@@ -36,6 +36,7 @@ const PractitionerTab = () => {
               <PractitionerCard
                 key={practitioner.id}
                 practitioner={practitioner}
+                onClick={() => setStackObject(practitioner)}
               />
             ))
           ) : (
@@ -49,9 +50,15 @@ const PractitionerTab = () => {
   )
 }
 
-function PractitionerCard({ practitioner }: { practitioner: Practitioner }) {
+function PractitionerCard({
+  practitioner,
+  onClick,
+}: {
+  practitioner: Practitioner
+  onClick: () => void
+}) {
   return (
-    <button>
+    <button onClick={onClick}>
       <Card className="p-4 rounded-2xl hover:shadow-md transition-shadow">
         <div className="flex items-center gap-4">
           <UserRound className="w-8 h-8" />

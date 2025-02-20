@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useState } from 'react'
 import StackProfileBody from './stack-profile-body'
+import StackPractitionerBody from './stack-practitioner-body'
 
 export default function Stack() {
   const { state, setStackObject } = useAppState()
@@ -41,8 +42,7 @@ function StackBody() {
 
   if (!state.stackObject) return null
   if ('specialty' in state.stackObject) {
-    // Practitioner
-    return null
+    return <StackPractitionerBody practitioner={state.stackObject} />
   }
 
   if ('email' in state.stackObject) {
