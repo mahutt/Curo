@@ -25,6 +25,7 @@ export default function StackProfileBody({ profile }: { profile: Profile }) {
     setIsEditing(false)
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updateProfile = (field: keyof Profile, value: any) => {
     setEditedProfile({ ...editedProfile, [field]: value })
   }
@@ -44,7 +45,7 @@ export default function StackProfileBody({ profile }: { profile: Profile }) {
                 />
               ) : (
                 <h1 className="text-2xl tracking-tight">
-                  {profile.name}'s Profile
+                  {profile.name}&apos;s Profile
                 </h1>
               )}
               {!isEditing && (
