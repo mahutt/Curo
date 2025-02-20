@@ -9,7 +9,7 @@ export default function TabBar() {
   const strokeWidth = 1.6
 
   return (
-    <div className="bg-white text-slate-400 flex justify-center space-x-16 py-4 shadow-md border-t z-20">
+    <div className="bg-white text-slate-400 flex justify-center space-x-16 py-4 shadow-md border-t z-40">
       <Tab
         icon={<Bell size={iconSize} strokeWidth={strokeWidth} />}
         active={state.tab === 'reminders'}

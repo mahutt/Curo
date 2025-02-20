@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
-import { Search, Filter, UserRound, ChevronRight } from 'lucide-react'
+import { Search, UserRound, ChevronRight } from 'lucide-react'
 import { Practitioner, useAppState } from '@/context/app-state'
 import PractitionerFilter from './practitioner-filter'
 
