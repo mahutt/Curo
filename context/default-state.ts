@@ -1,6 +1,15 @@
 import { AppState } from './app-state'
 export const generateId = () => Math.random().toString(36).substring(2, 9)
 export const DEFAULT_APP_STATE: AppState = {
+  profile: {
+    id: 'profile',
+    name: 'John Doe',
+    email: 'jdoe@concordia.ca',
+    fontSize: 16,
+    colorBlind: 'normal',
+    notificationPreference: 'email',
+    hideNotificationDetails: false,
+  },
   tab: 'reminders',
   drawerObject: null,
   stackObject: null,

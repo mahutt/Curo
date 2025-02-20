@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useState } from 'react'
+import StackProfileBody from './stack-profile-body'
 
 export default function Stack() {
   const { state, setStackObject } = useAppState()
@@ -42,6 +43,13 @@ function StackBody() {
   if ('specialty' in state.stackObject) {
     // Practitioner
     return null
+  }
+
+  if ('email' in state.stackObject) {
+    // Profile
+    return StackProfileBody({
+      profile: state.stackObject,
+    })
   }
 
   const medication = state.stackObject

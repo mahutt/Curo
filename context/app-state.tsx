@@ -35,9 +35,20 @@ export interface Practitioner {
   reminders: AppointmentReminder[]
 }
 
+export interface Profile {
+  id: 'profile'
+  name: string
+  email: string
+  fontSize: number
+  colorBlind: 'normal' | 'protanopia' | 'deuteranopia' | 'tritanopia'
+  notificationPreference: 'email' | 'push' | 'sms' | 'in-app'
+  hideNotificationDetails: boolean
+}
+
 export interface AppState {
+  profile: Profile
   tab: Tab
-  stackObject: Medication | Practitioner | null
+  stackObject: Medication | Practitioner | Profile | null
   drawerObject:
     | (MedicationReminder & { name: string })
     | (AppointmentReminder & { name: string })
@@ -51,7 +62,7 @@ export interface AppState {
 interface AppContextValue {
   state: AppState
   changeTab: (tab: Tab) => void
-  setStackObject: (object: Medication | Practitioner | null) => void
+  setStackObject: (object: Medication | Practitioner | Profile | null) => void
   setDrawerObject: (
     object:
       | (MedicationReminder & { name: string })
@@ -113,7 +124,7 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
   }, [])
 
   const setStackObject = useCallback(
-    (object: Medication | Practitioner | null) => {
+    (object: Medication | Practitioner | Profile | null) => {
       setState((prevState) => ({
         ...prevState,
         stackObject: object,
