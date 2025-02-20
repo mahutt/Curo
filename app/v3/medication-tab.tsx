@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Pill, Search, Filter } from 'lucide-react'
 import { Medication, useAppState } from '@/context/app-state'
+import MedicationFilter from './medication-filter'
 
 const MedicationTab = () => {
   const { state } = useAppState()
@@ -25,10 +26,7 @@ const MedicationTab = () => {
           />
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
         </div>
-        <button className="flex items-center gap-1 text-sm font-medium text-gray-600 px-3 py-2 rounded-full border border-gray-300">
-          <Filter className="w-4 h-4" />
-          Filter
-        </button>
+        <MedicationFilter />
       </div>
 
       <div className="flex-1 overflow-y-auto pb-4">

@@ -12,7 +12,7 @@ export default function Stack() {
   const { state, setStackObject } = useAppState()
   return (
     <div
-      className={`absolute inset-0 bg-white z-10 px-6 py-8 transition-opacity duration-100 ${
+      className={`absolute inset-0 bg-white z-30 px-6 py-8 transition-opacity duration-100 ${
         state.stackObject ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
     >
