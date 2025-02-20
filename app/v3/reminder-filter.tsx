@@ -1,6 +1,5 @@
 import { Check, ChevronDown } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
 
 export default function ReminderFilter() {
   const [isOpen, setIsOpen] = useState(false)
@@ -52,7 +51,7 @@ export default function ReminderFilter() {
               {index > 0 && <div className="border-t w-[90%] mx-auto"></div>}
               <button
                 onClick={() => {
-                  setValue(option as any)
+                  setValue(option)
                   setIsOpen(false)
                 }}
                 className={`flex justify-between items-center w-full px-4 py-2 text-left hover:bg-gray-50 text-sm ${

@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
-import { Pill, Search, Filter } from 'lucide-react'
+import { Pill, Search } from 'lucide-react'
 import { Medication, useAppState } from '@/context/app-state'
 import MedicationFilter from './medication-filter'
 

@@ -1,4 +1,4 @@
-import { Check, ChevronDown, Filter, Settings2 } from 'lucide-react'
+import { Check, Settings2 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 export default function MedicationFilter() {
@@ -65,7 +65,7 @@ export default function MedicationFilter() {
             Sort by
           </div>
 
-          {sortOptions.map((option, index) => (
+          {sortOptions.map((option) => (
             <div key={`sort-${option}`}>
               <button
                 onClick={() => {
@@ -91,7 +91,7 @@ export default function MedicationFilter() {
             Types
           </div>
 
-          {typeOptions.map((option, index) => (
+          {typeOptions.map((option) => (
             <div key={`type-${option}`}>
               <button
                 onClick={() => {

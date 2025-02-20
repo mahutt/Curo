@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { Card } from '@/components/ui/card'
-import { Pill, Phone, Check, ChevronDown } from 'lucide-react'
+import { Pill, Phone, Check } from 'lucide-react'
 import {
   AppointmentReminder,
   Medication,
