@@ -99,6 +99,9 @@ function MedicationReminderDrawerBody() {
             })
           }}
           variant={medicationReminder.taken ? 'outline' : 'default'}
+          className={
+            medicationReminder.taken ? '' : 'bg-green-600 hover:bg-green-700'
+          }
         >
           {medicationReminder.taken ? (
             <X className="h-4 w-4 mr-2" />
