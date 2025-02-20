@@ -43,6 +43,10 @@ function StackBody() {
     // Practitioner
     return null
   }
+  if ('email' in state.stackObject) {
+    // Profile
+    return null
+  }
 
   const medication = state.stackObject
 
