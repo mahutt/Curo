@@ -1,6 +1,6 @@
 import { Practitioner } from '@/context/app-state'
 import { useState } from 'react'
-import { Bell, Camera, Phone } from 'lucide-react'
+import { Bell, Camera, Phone, Send } from 'lucide-react'
 
 export default function DMPractitionerBody({
   practitioner,
@@ -97,9 +97,12 @@ export default function DMPractitionerBody({
         </button>
         <button
           onClick={handleSendMessage}
-          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+          className="w-8 h-8 relative bg-green-500 text-white px-2 py-2 rounded-full hover:bg-green-600"
         >
-          Send
+          <Send
+            size={20}
+            className="absolute left-1/2 top-1/2 transform -translate-x-[11px] -translate-y-1/2"
+          />
         </button>
       </div>
     </div>

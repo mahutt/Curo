@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
 import { DEFAULT_APP_STATE, generateId } from './default-state'
 
-type Tab = 'reminders' | 'medication' | 'hcp'
+type Tab = 'reminders' | 'medication' | 'hcp' | 'chat'
 
 export interface AppointmentReminder {
   id: string

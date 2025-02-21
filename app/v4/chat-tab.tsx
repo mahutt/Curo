@@ -3,9 +3,8 @@ import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Search, UserRound, ChevronRight } from 'lucide-react'
 import { Practitioner, useAppState } from '@/context/app-state'
-import PractitionerFilter from './practitioner-filter'
 
-const PractitionerTab = () => {
+const ChatTab = () => {
   const { state, setStackObject } = useAppState()
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -19,14 +18,13 @@ const PractitionerTab = () => {
         <div className="flex-1 relative">
           <input
             type="text"
-            placeholder="Search practitioners..."
+            placeholder="Search messages..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full py-2 pl-10 pr-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           />
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
         </div>
-        <PractitionerFilter />
       </div>
 
       <div className="flex-1 overflow-y-auto pb-4">
@@ -64,9 +62,17 @@ function PractitionerCard({
           <UserRound className="w-8 h-8" />
           <div>
             <div className="font-medium text-start">{practitioner.name}</div>
-            <div className="text-sm text-gray-500">
-              {practitioner.specialty}
+            <div className="text-sm text-gray-500 italic text-start">
+              Hi Robert, yes I can...
             </div>
+          </div>
+          <div className="flex-1"></div>
+
+          <div className="flex items-center gap-1 justify-start self-start">
+            <div className="text-xs text-semibold text-gray-500">
+              12:30&nbsp;PM
+            </div>
+            <ChevronRight className="w-4 h-4 text-gray-400" />
           </div>
         </div>
       </Card>
@@ -74,4 +80,4 @@ function PractitionerCard({
   )
 }
 
-export default PractitionerTab
+export default ChatTab

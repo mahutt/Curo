@@ -9,6 +9,7 @@ import PractitionerTab from './practitioner-tab'
 import SlideDownPanel from './slide-down-panel'
 import Drawer from './drawer'
 import Stack from './stack/stack'
+import ChatTab from './chat-tab'
 
 export default function V2() {
   const { state, setStackObject, setAddMenuOpen } = useAppState()
@@ -34,6 +35,7 @@ export default function V2() {
         {state.tab === 'reminders' && <ReminderTab />}
         {state.tab === 'medication' && <MedicationTab />}
         {state.tab === 'hcp' && <PractitionerTab />}
+        {state.tab === 'chat' && <ChatTab />}
         <TabBar />
       </div>
       <Drawer />

@@ -6,6 +6,8 @@ const getTabName = (tab: string) => {
       return 'Medication'
     case 'hcp':
       return 'Healthcare Providers'
+    case 'chat':
+      return 'Chat'
   }
 }
 
