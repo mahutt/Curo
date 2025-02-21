@@ -5,11 +5,50 @@ import { Search, UserRound } from 'lucide-react'
 import { Practitioner, useAppState } from '@/context/app-state'
 import PractitionerFilter from './practitioner-filter'
 
+const FAKE_PRACTITIONERS: Practitioner[] = [
+  {
+    id: '1',
+    name: 'Dr. Alice Nguyen',
+    specialty: 'Cardiology',
+    reminders: [],
+  },
+  {
+    id: '2',
+    name: 'Dr. Benjamin Lee',
+    specialty: 'Dermatology',
+    reminders: [],
+  },
+  {
+    id: '3',
+    name: 'Dr. Clara Patel',
+    specialty: 'Pediatrics',
+    reminders: [],
+  },
+  {
+    id: '4',
+    name: 'Dr. David Chen',
+    specialty: 'Orthopedics',
+    reminders: [],
+  },
+  {
+    id: '5',
+    name: 'Dr. Emma Johnson',
+    specialty: 'Neurology',
+    reminders: [],
+  },
+  {
+    id: '6',
+    name: "Dr. Frank O'Connor",
+    specialty: 'Psychiatry',
+    reminders: [],
+  },
+]
+
 const PractitionerTab = () => {
-  const { state, setStackObject } = useAppState()
+  const { setStackObject } = useAppState()
   const [searchTerm, setSearchTerm] = useState('')
 
-  const filteredPractitioners = state.practitioners.filter((practitioner) =>
+  const filteredPractitioners = FAKE_PRACTITIONERS.filter((practitioner) =>
     practitioner.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
@@ -64,7 +103,7 @@ function PractitionerCard({
           <UserRound className="w-8 h-8" />
           <div>
             <div className="font-medium text-start">{practitioner.name}</div>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-gray-500 text-start">
               {practitioner.specialty}
             </div>
           </div>

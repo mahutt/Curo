@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { useAppState } from '@/context/app-state'
-import { Bell, Pill, UserRound, X } from 'lucide-react'
+import { Calendar, Pill, X } from 'lucide-react'
 
 export default function SlideDownPanel() {
   const { state, setAddMenuOpen } = useAppState()
@@ -37,22 +37,15 @@ export default function SlideDownPanel() {
               className="w-full text-green-500 border border-green-500 rounded-lg py-2 px-4 flex items-center justify-center gap-2"
               onClick={() => setAddMenuOpen(false)}
             >
-              <Pill className="h-4 w-4" />
-              Add Medication
-            </button>
-            <button
-              className="w-full text-green-500 border border-green-500 rounded-lg py-2 px-4 flex items-center justify-center gap-2"
-              onClick={() => setAddMenuOpen(false)}
-            >
-              <UserRound className="h-4 w-4" />
-              Add Practitioner
+              <Calendar className="h-4 w-4" />
+              Make Appointment
             </button>
             <button
               className="w-full bg-green-500 text-white rounded-lg py-2 px-4 flex items-center justify-center gap-2"
               onClick={() => setAddMenuOpen(false)}
             >
-              <Bell className="h-4 w-4" />
-              Add Reminder
+              <Pill className="h-4 w-4" />
+              Add Medication
             </button>
           </div>
         </div>
