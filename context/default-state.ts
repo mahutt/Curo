@@ -75,7 +75,7 @@ export const DEFAULT_APP_STATE: AppState = {
           time: '10:00 AM',
           type: 'appointment',
           duration: '30 minutes',
-          taken: false,
+          taken: true,
         },
         {
           id: generateId(),

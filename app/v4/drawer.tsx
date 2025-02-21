@@ -138,6 +138,8 @@ function AppointmentReminderDrawerBody() {
     return null
   }
 
+  const taken = appointmentReminder.taken
+
   return (
     <div className="px-6 pt-2 pb-6">
       <div className="text-sm text-gray-500 mb-2">
@@ -173,19 +175,15 @@ function AppointmentReminderDrawerBody() {
               setDrawerObject(null)
             }
           }}
-          variant={appointmentReminder.taken ? 'outline' : 'default'}
-          className={
-            appointmentReminder.taken ? '' : 'bg-green-600 hover:bg-green-700'
-          }
+          variant={taken ? 'outline' : 'default'}
+          className={taken ? '' : 'bg-green-600 hover:bg-green-700'}
         >
-          {appointmentReminder.taken ? (
+          {taken ? (
             <X className="h-4 w-4 mr-2" />
           ) : (
             <Check className="h-4 w-4 mr-2" />
           )}
-          {appointmentReminder.taken
-            ? 'Mark as complete'
-            : 'Mark as not complete'}
+          {taken ? 'Mark as not complete' : 'Mark as complete'}
         </Button>
       </div>
     </div>
