@@ -50,7 +50,7 @@ function HCPStackBody() {
     const endHour = 17
 
     for (let hour = startHour; hour < endHour; hour++) {
-      for (let minute of [0, 30]) {
+      for (const minute of [0, 30]) {
         if (Math.random() < 0.7) {
           const formattedHour = hour.toString().padStart(2, '0')
           const formattedMinute = minute.toString().padStart(2, '0')
