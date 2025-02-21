@@ -1,14 +1,11 @@
 'use client'
 
 import { useAppState } from '@/context/app-state'
-import { Check, ChevronLeft, Pencil, X } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
 import { getTabName } from '@/context/utils'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { useState } from 'react'
 import StackProfileBody from './stack-profile-body'
 import StackPractitionerBody from './stack-practitioner-body'
+import StackMedicationBody from './stack-medication-body'
 
 export default function Stack() {
   const { state, setStackObject } = useAppState()
@@ -36,9 +33,6 @@ export default function Stack() {
 
 function StackBody() {
   const { state, updateMedication } = useAppState()
-  const [isEditing, setIsEditing] = useState(false)
-  const [editedName, setEditedName] = useState('')
-  const [editedDescription, setEditedDescription] = useState('')
 
   if (!state.stackObject) return null
   if ('specialty' in state.stackObject) {
@@ -52,73 +46,15 @@ function StackBody() {
     })
   }
 
-  const medication = state.stackObject
-
-  const handleEditClick = () => {
-    setIsEditing(true)
-    setEditedName(medication.name)
-    setEditedDescription(medication.description || '')
-  }
-
-  const handleSaveClick = () => {
-    updateMedication(medication.id, {
-      name: editedName,
-      description: editedDescription,
+  if ('name' in state.stackObject) {
+    // Medication
+    return StackMedicationBody({
+      medication: state.stackObject,
+      updateMedication(id, data) {
+        updateMedication(id, data)
+      },
     })
-    setIsEditing(false)
   }
 
-  return (
-    <div className="flex-1 overflow-y-auto px-2 pt-5">
-      <div className="flex flex-col gap-2">
-        <div className="flex justify-between items-center">
-          {isEditing ? (
-            <Input
-              value={editedName}
-              onChange={(e) => setEditedName(e.target.value)}
-              className="text-2xl tracking-tight"
-            />
-          ) : (
-            <h1 className="text-2xl tracking-tight">{medication.name}</h1>
-          )}
-          {!isEditing && (
-            <Button
-              variant="ghost"
-              onClick={isEditing ? handleSaveClick : handleEditClick}
-            >
-              <Pencil className="w-4 h-4 text-gray-500" />
-            </Button>
-          )}
-        </div>
-        {isEditing ? (
-          <>
-            <Textarea
-              value={editedDescription}
-              onChange={(e) => setEditedDescription(e.target.value)}
-              className="text-sm text-gray-500"
-              placeholder="Add a description..."
-            />
-            <div className="flex gap-2">
-              <Button
-                variant="secondary"
-                className="flex-1"
-                onClick={() => setIsEditing(false)}
-              >
-                <X className="h-4 w-4" />
-                Cancel
-              </Button>
-              <Button className="flex-1" onClick={handleSaveClick}>
-                <Check className="h-4 w-4" />
-                Save
-              </Button>
-            </div>
-          </>
-        ) : (
-          <div className="text-sm text-gray-500">
-            {medication.description || 'No description'}
-          </div>
-        )}
-      </div>
-    </div>
-  )
+  return null
 }
