@@ -39,6 +39,9 @@ function StackBody() {
   const [editedDescription, setEditedDescription] = useState('')
 
   if (!state.stackObject) return null
+  if (state.stackObject === 'stats') {
+    return null
+  }
   if ('specialty' in state.stackObject) {
     // Practitioner
     return null
