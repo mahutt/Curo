@@ -48,7 +48,7 @@ export interface Profile {
 export interface AppState {
   profile: Profile
   tab: Tab
-  stackObject: Medication | Practitioner | Profile | null
+  stackObject: Medication | Practitioner | Profile | 'stats' | null
   drawerObject:
     | (MedicationReminder & { name: string })
     | (AppointmentReminder & { name: string })
@@ -63,7 +63,9 @@ export interface AppState {
 interface AppContextValue {
   state: AppState
   changeTab: (tab: Tab) => void
-  setStackObject: (object: Medication | Practitioner | Profile | null) => void
+  setStackObject: (
+    object: Medication | Practitioner | Profile | 'stats' | null
+  ) => void
   setDrawerObject: (
     object:
       | (MedicationReminder & { name: string })
@@ -127,7 +129,7 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
   }, [])
 
   const setStackObject = useCallback(
-    (object: Medication | Practitioner | Profile | null) => {
+    (object: Medication | Practitioner | Profile | 'stats' | null) => {
       setState((prevState) => ({
         ...prevState,
         stackObject: object,
@@ -228,7 +230,7 @@ export function AppStateProvider({ children }: AppStateProviderProps) {
           (med) => med.id === id
         )
         if (!staleMedication) return prevState
-        let updateStackObject = state.stackObject && state.stackObject.id === id
+        // let updateStackObject = state.stackObject && state.stackObject.id === id
         return {
           ...prevState,
           stackObject: medication

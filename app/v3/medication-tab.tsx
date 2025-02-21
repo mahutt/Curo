@@ -1,12 +1,12 @@
 'use client'
 import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
-import { Pill, Search } from 'lucide-react'
+import { ChartLine, Pill, Search } from 'lucide-react'
 import { Medication, useAppState } from '@/context/app-state'
 import MedicationFilter from './medication-filter'
 
 const MedicationTab = () => {
-  const { state } = useAppState()
+  const { state, setStackObject } = useAppState()
   const [searchTerm, setSearchTerm] = useState('')
 
   const filteredMedications = state.medications.filter((med) =>
@@ -41,6 +41,14 @@ const MedicationTab = () => {
             </div>
           )}
         </div>
+      </div>
+      <div className="absolute bottom-[70px] right-2">
+        <button
+          onClick={() => setStackObject('stats')}
+          className="bg-white h-12 w-12 text-sm border border-green-600 px-3 py-1 rounded-full flex justify-center items-center shadow active:scale-95 transition-transform"
+        >
+          <ChartLine strokeWidth={1.5} className="w-6 h-6 text-green-600" />
+        </button>
       </div>
     </>
   )

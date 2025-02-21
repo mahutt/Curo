@@ -6,6 +6,7 @@ import { getTabName } from '@/context/utils'
 import StackProfileBody from './stack-profile-body'
 import StackPractitionerBody from './stack-practitioner-body'
 import StackMedicationBody from './stack-medication-body'
+import StackStatsBody from './stack-stats-body'
 
 export default function Stack() {
   const { state, setStackObject } = useAppState()
@@ -35,6 +36,11 @@ function StackBody() {
   const { state, updateMedication } = useAppState()
 
   if (!state.stackObject) return null
+
+  if (state.stackObject === 'stats') {
+    return <StackStatsBody />
+  }
+
   if ('specialty' in state.stackObject) {
     return <StackPractitionerBody practitioner={state.stackObject} />
   }
