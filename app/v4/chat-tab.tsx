@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
-import { Search, UserRound, ChevronRight, Users } from 'lucide-react'
+import { Search, UserRound, ChevronRight } from 'lucide-react'
 import { Practitioner, useAppState } from '@/context/app-state'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
