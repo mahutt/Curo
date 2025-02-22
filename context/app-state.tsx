@@ -33,6 +33,7 @@ export interface Practitioner {
   name: string
   specialty: string
   reminders: AppointmentReminder[]
+  imageUrl: string
 }
 
 export interface Profile {

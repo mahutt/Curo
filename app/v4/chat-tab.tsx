@@ -1,8 +1,9 @@
 'use client'
 import React, { useState } from 'react'
 import { Card } from '@/components/ui/card'
-import { Search, UserRound, ChevronRight } from 'lucide-react'
+import { Search, UserRound, ChevronRight, Users } from 'lucide-react'
 import { Practitioner, useAppState } from '@/context/app-state'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 const ChatTab = () => {
   const { state, setStackObject } = useAppState()
@@ -59,7 +60,12 @@ function PractitionerCard({
     <button onClick={onClick}>
       <Card className="p-4 rounded-2xl hover:shadow-md transition-shadow">
         <div className="flex items-center gap-4">
-          <UserRound className="w-8 h-8" />
+          <Avatar>
+            <AvatarImage src={practitioner.imageUrl} alt={practitioner.name} />
+            <AvatarFallback>
+              <UserRound className="w-8 h-8" />
+            </AvatarFallback>
+          </Avatar>
           <div>
             <div className="font-medium text-start">{practitioner.name}</div>
             <div className="text-sm text-gray-500 italic text-start">

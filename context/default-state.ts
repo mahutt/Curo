@@ -69,6 +69,8 @@ export const DEFAULT_APP_STATE: AppState = {
       id: generateId(),
       name: 'Dr. Smith',
       specialty: 'Cardiologist',
+      imageUrl:
+        'https://media.licdn.com/dms/image/v2/D4E03AQHlySQ8BKZYWg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718905678151?e=1745452800&v=beta&t=Sze_DRKXdkDvjzA0u2ag5q-tXg1ceIsN41smsvUswCQ',
       reminders: [
         {
           id: generateId(),
@@ -97,6 +99,8 @@ export const DEFAULT_APP_STATE: AppState = {
       id: generateId(),
       name: 'Dr. Doe',
       specialty: 'Cardiologist',
+      imageUrl:
+        'https://media.licdn.com/dms/image/v2/D4E03AQFNE6EQzlKxAw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1720576222081?e=1745452800&v=beta&t=nYRfDSDj4WoQUvvKwgh6YDVAORwrw8T0sDdeu4XtOTg',
       reminders: [],
     },
   ],
