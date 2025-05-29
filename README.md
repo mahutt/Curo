@@ -1,1 +1,1 @@
-Curo is a mobile pill tracking application built in Next.js for SOEN 357.
+Curo is a mobile pill tracking application built in [Next.js](https://nextjs.org) for SOEN 357.
